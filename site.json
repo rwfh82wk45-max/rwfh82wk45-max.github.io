@@ -1,0 +1,37 @@
+{
+  "base_url": "https://rwfh82wk45-max.github.io",
+  "site_name": "Traffic & DOGE Guide",
+  "tagline": "Plain-English guides to traffic exchanges, PTC sites, FaucetPay and earning DOGE.",
+  "publisher": "SurfFlux team",
+  "surfflux_url": "https://surfflux.com",
+  "indexnow_key": "7b5874ff74402fa0d007ab07ecfbb112",
+  "default_lang": "en",
+  "languages": {
+    "en": {
+      "name": "English",
+      "prefix": ""
+    }
+  },
+  "categories": [
+    {
+      "id": "traffic-exchange",
+      "title": "Traffic exchanges",
+      "intro": "How exchanges work, which ones are worth a look, and what happened to the big names."
+    },
+    {
+      "id": "traffic",
+      "title": "Getting and buying website traffic",
+      "intro": "Free methods, paid traffic and Paid To Promote, with honest notes on what each kind of visit is good for."
+    },
+    {
+      "id": "earn",
+      "title": "Earning from ads",
+      "intro": "Paid to click, getting paid to watch ads, and the crypto versions of both."
+    },
+    {
+      "id": "faucetpay-doge",
+      "title": "FaucetPay and DOGE",
+      "intro": "Faucets, the FaucetPay wallet, and realistic ways to collect Dogecoin."
+    }
+  ]
+}

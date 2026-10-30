@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rwfh82wk45-max.github.io/sitemap.xml

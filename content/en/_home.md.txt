@@ -1,0 +1,5 @@
+# Traffic exchanges, PTC and DOGE faucets, explained without the hype
+
+These guides cover the small, slightly odd corner of the internet where people swap website visits, get paid a few koinu to look at an ad, and collect Dogecoin in a FaucetPay wallet. We explain how each method works, what it realistically pays or delivers, and where the traps are.
+
+The site is run by the team behind [SurfFlux](https://surfflux.com/), a traffic exchange that pays in DOGE. We say so on every page, and we try to be just as plain about SurfFlux's limits as about anyone else's.
