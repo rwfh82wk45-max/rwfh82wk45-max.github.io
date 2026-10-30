@@ -30,6 +30,18 @@ Paste any HTML (image link, ad network code) into the file, then run `python bui
 A file that contains only the comment is treated as empty and the slot is hidden.
 Put banner images in `assets/banners/`.
 
+## Head code and root files
+
+- `partials/head.html` – code inserted into `<head>` of every page (Pinterest/Google verification meta tags, ad network scripts).
+- `static/` – files copied unchanged to the site root on every build (`static/ads.txt` → `/ads.txt`, verification HTML files, favicon).
+
+## Pinterest pins
+
+- Pin images (1000×1500) are in `assets/pins/`, one per article. They are also used as the article's `og:image`.
+- `pins.csv` is ready for Pinterest's bulk upload (Pin Builder → Create Pins in bulk). Board names in the file must match your boards exactly: Traffic Exchange Guides, Website Traffic Tips, Earn Crypto From Ads, FaucetPay & Dogecoin.
+- Publish dates are spread over the next days (2 pins per day); Pinterest accepts dates up to 14 days ahead. Regenerate the file if you upload later.
+- To change texts or add pins: edit `scripts/pins.json`, then `python scripts/make_pins.py` (needs `pip install playwright && playwright install chromium`) and `python build.py`.
+
 ## Articles
 
 Articles are Markdown files in `content/en/`. The header (front matter) controls:
