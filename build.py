@@ -66,7 +66,9 @@ def hreflang_tags(slug, langs_with_slug):
     return "\n".join(tags) if len(langs_with_slug) > 1 else ""
 
 
-def page(lang, title, description, path, body, hreflang="", jsonld=None, cats=None):
+def page(lang, title, description, path, body, hreflang="", jsonld=None, cats=None, image=None):
+    og_img = f'<meta property="og:image" content="{BASE}{image}">\n<meta property="og:image:width" content="1000">\n<meta property="og:image:height" content="1500">' if image else ""
+    head_extra = read_partial("head.html")
     year = datetime.date.today().year
     nav = "".join(f'<a href="{url_for(lang)}#{c["id"]}">{esc(c["title"])}</a>' for c in (cats or CFG["categories"]))
     ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
@@ -83,8 +85,10 @@ def page(lang, title, description, path, body, hreflang="", jsonld=None, cats=No
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{BASE}{path}">
+{og_img}
 <link rel="stylesheet" href="/assets/style.css">
 {ld}
+{head_extra}
 </head>
 <body>
 <header class="site-head">
@@ -125,6 +129,14 @@ def build():
     OUT.mkdir()
     shutil.copytree(ROOT / "assets", OUT / "assets")
     (OUT / ".nojekyll").write_text("")
+    # files from static/ go to the site root unchanged (ads.txt, verification files, ...)
+    st = ROOT / "static"
+    if st.exists():
+        for f in st.rglob("*"):
+            if f.is_file() and f.name != "README.txt":
+                dest = OUT / f.relative_to(st)
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(f, dest)
 
     # IndexNow key file
     key = CFG.get("indexnow_key") or ""
@@ -180,8 +192,11 @@ def build():
                 "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
                     {"@type": "ListItem", "position": 1, "name": "Home", "item": BASE + url_for(lang)},
                     {"@type": "ListItem", "position": 2, "name": a["title"], "item": BASE + path}]}]
+            img = f"/assets/pins/{slug}.png" if (ROOT / "assets" / "pins" / f"{slug}.png").exists() else None
+            if img:
+                jsonld[0]["image"] = BASE + img
             html_out = page(lang, a["title"], a.get("description", ""), path, body,
-                            hreflang_tags(slug, slug_langs.get(slug, [])), jsonld)
+                            hreflang_tags(slug, slug_langs.get(slug, [])), jsonld, image=img)
             dest = OUT / path.strip("/") / "index.html"
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_text(html_out, encoding="utf-8")
